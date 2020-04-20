@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+ <head>
+  <meta charset="utf-8">
+  <title></title>
+ </head>
+ <body>
+  <h1>Local Storage Example</h1>
+  <ul>
+    <li>Shared between all tabs & windows from the same origin</li>
+    <li>Data does not expire. It remains even after the borswer restarts</li>
+  </ul>
+  <h3>Hold onto data that you forgot to save</h3>
+  <textarea name="name" rows="8" cols="80" placeholder="Something here..." id="text"></textarea>
+  <br>
+  <button id="clear" type="button" name="button">Clear data</button>
+  <button id="length" type="button" name="button">Length of data</button>
+  <div id="alerts" style="margin-top:30px;"></div>
+  <script type="text/javascript">
+
+    localStorage.setItem('test', 1);
+    // run this in browser: alert( localStorage.getItem('test') );
+
+    // set key
+    localStorage.test = 2;
+    // get key
+    // run this in browser: alert(localStorage.test);
+    // remove key
+    // delete localStorage.test;
+
+    // local storage for textarea
+    let text = document.getElementById('text');
+    text.value = localStorage.getItem('text');
+    text.oninput = () => {
+      localStorage.setItem('text', text.value)
+    };
+
+    function removeStorage() {
+      document.getElementById('clear').addEventListener('click', function() {
+        console.log('clicked');
+        localStorage.removeItem('text');
+        document.getElementById('text').value = "";
+      })
+    }
+    removeStorage();
+
+    function getLengthOfLocalStorage() {
+      document.getElementById('length').addEventListener('click', function() {
+        let l = localStorage.length;
+        console.log(l);
+        document.getElementById('alerts').innerHTML = "<div>number of stored items: " + l +"</div>";
+      })
+    }
+    getLengthOfLocalStorage();
+
+    // https://javascript.info/localstorage
+  </script>
+ </body>
+</html>
